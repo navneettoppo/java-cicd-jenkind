@@ -45,8 +45,10 @@ pipeline {
         //   region: 'us-east-1'
         // ]]) {
           script {
-            docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}") {
-              dockerImage.push()
+            // docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}") {
+            //   dockerImage.push()
+            sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 492365833365.dkr.ecr.us-east-1.amazonaws.com'
+            sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:latest'
             }
           }
         }
