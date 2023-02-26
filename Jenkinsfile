@@ -36,7 +36,13 @@ pipeline {
    
     // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
-      steps{  
+      steps{
+        withCredentials([[
+          $class: 'AmazonWebServicesCredentialsBinding',
+          accessKeyVariable: 'AKIAXFI2KMSK3EHXKR62',
+          secretKeyVariable: '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',
+          region: 'us-east-1'
+        ]])  
         script {
 			    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
          	dockerImage.push()
