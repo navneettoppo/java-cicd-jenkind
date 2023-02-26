@@ -46,7 +46,7 @@ pipeline {
       }
     }
       
-    stage('Deploy') {
+    stage('Deploy to ECS') {
       steps{
         withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
           script {
