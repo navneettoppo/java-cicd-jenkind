@@ -37,14 +37,7 @@ pipeline {
     // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
       steps{
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: 'ecsagent',
-          region: 'us-east-1'
-        ]]) {
-          script {
-            docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:") {
-              dockerImage.push()
+          docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:") {        withCredentials([[          $class: 'AmazonWebServicesCredentialsBinding',          credentialsId: 'ecsagent',          region: 'us-east-1'        ]]) {          dockerImage.push()
             }
           }
         }
