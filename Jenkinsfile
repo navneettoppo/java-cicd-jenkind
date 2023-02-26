@@ -7,7 +7,7 @@ pipeline {
         SERVICE_NAME="nodejs-container-svc"
         TASK_DEFINITION_NAME="custom"
         DESIRED_COUNT="1"
-        IMAGE_REPO_NAME="demo-jenkins1"
+        IMAGE_REPO_NAME="demo-jenkins"
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	      registryCredential = "ecsagent"
