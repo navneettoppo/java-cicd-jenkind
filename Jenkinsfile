@@ -29,7 +29,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          sh 'whoami'
+          sh 'id $(whoami)'
           dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
         }
       }
