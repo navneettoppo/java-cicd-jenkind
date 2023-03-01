@@ -79,7 +79,8 @@ pipeline {
         //   region: 'us-east-1',]])
         // withAWS(credentials: '842cece7-3722-4af3-9ccb-5434cbfd99bc', region: "${AWS_DEFAULT_REGION}") {
           script {
-			      sh 'script.sh'
+            sh 'chmod +x script.sh'
+			      sh './script.sh'
           }
         // } 
       }
