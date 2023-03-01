@@ -73,7 +73,7 @@ pipeline {
       
     stage('Deploy to ECS') {
       steps{
-        withAWS(credentials: 'ecsagent', region: "${AWS_DEFAULT_REGION}") {
+        withAWS(credentials: '842cece7-3722-4af3-9ccb-5434cbfd99bc', region: "${AWS_DEFAULT_REGION}") {
           script {
 			      sh './script.sh'
           }
