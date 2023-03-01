@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="492365833365"
         AWS_DEFAULT_REGION="us-east-1" 
-        CLUSTER_NAME="ecscluster"
+        CLUSTER_NAME="javcluster"
         SERVICE_NAME="nodejs-container-svc"
         TASK_DEFINITION_NAME="custom"
         DESIRED_COUNT="1"
@@ -29,6 +29,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
+          sh 'whoami'
           dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
         }
       }
@@ -44,23 +45,24 @@ pipeline {
         //   // credentialsId: 'ecsagent',
         //   region: 'us-east-1'
         // ]]) {
-          script {
-            // docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}") {
-            //   dockerImage.push()
-            sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 492365833365.dkr.ecr.us-east-1.amazonaws.com'
-            sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:latest'
-            }
-          }
-        }
+        //   script {
+        //     // docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}") {
+        //     //   dockerImage.push()
+        //     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 492365833365.dkr.ecr.us-east-1.amazonaws.com'
+        //     sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:1'
+        //     }
+        //   }
+        // }
       
     
-    //     script {
-		// 	    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:") {
-    //      	dockerImage.push()
-    //       }
-    //     }
-    //   }
-    // }
+        script {
+          sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:1'
+			    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:") {
+         	dockerImage.push()
+          }
+        }
+      }
+    }
       
     stage('Deploy to ECS') {
       steps{
