@@ -61,9 +61,11 @@ pipeline {
         //   }
         // }
         script {
-              docker.withRegistry('https://$(aws ecr get-login --region us-east-1 --no-include-email)') {
-              def app = docker.build("492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}")
-              app.push()
+              // docker.withRegistry('https://$(aws ecr get-login --region us-east-1 --no-include-email)') {
+              // def app = docker.build("492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}")
+              // app.push()
+              sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 492365833365.dkr.ecr.us-east-1.amazonaws.com'
+              sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
           }
         } 
       }
