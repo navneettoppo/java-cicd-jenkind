@@ -53,14 +53,19 @@ pipeline {
         //     }
         //   }
         // }
-      
-    
+          
+        // script {
+        //   sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
+			  //   docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:${IMAGE_TAG}") {
+        //  	dockerImage.push()
+        //   }
+        // }
         script {
-          sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
-			    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:${IMAGE_TAG}") {
-         	dockerImage.push()
+              docker.withRegistry('https://$(aws ecr get-login --region us-east-1 --no-include-email)') {
+              def app = docker.build("492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}")
+              app.push()
           }
-        }
+        } 
       }
     }
       
