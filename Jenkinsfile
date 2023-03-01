@@ -56,7 +56,7 @@ pipeline {
       
     
         script {
-          sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${env.BUILD_ID}'
+          sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
 			    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:") {
          	dockerImage.push()
           }
