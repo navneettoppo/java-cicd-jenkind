@@ -1,9 +1,9 @@
 {
-    "family": FAMILY,
+    "family": ${FAMILY},
     "containerDefinitions": [
         {
             "image": "REPOSITORY_URI:BUILD_NUMBER",
-            "name": NAME,
+            "name": ${NAME},
 	    "essential": true,
             "portMappings": [
                 {
@@ -19,5 +19,5 @@
              "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "executionRoleArn": ROLE_ARN 
+    "executionRoleArn": ${ROLE_ARN} 
 }
