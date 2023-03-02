@@ -1,40 +1,40 @@
-# #Base Image node:12.18.4-alpine
-# FROM node:12.18.4-alpine
+#Base Image node:12.18.4-alpine
+FROM node:12.18.4-alpine
 
-# #Set working directory to /app
-# WORKDIR /app
-
-# #Set PATH /app/node_modules/.bin
-# ENV PATH /app/node_modules/.bin:$PATH
-
-# #Copy package.json in the image
-# COPY package.json ./
-
-# #Run npm install command
-# RUN npm install
-
-# #Copy the app
-# COPY . ./
-
-# EXPOSE 3000
-
-# #Start the app
-# CMD ["node", "./src/server.js"]
-
-#########Jave App#####################################################
-FROM openjdk:11-jdk-slim
-
-# Set working directory
+#Set working directory to /app
 WORKDIR /app
 
-# Copy application files
-COPY app/my-web-app.war /app/my-web-app.war
+#Set PATH /app/node_modules/.bin
+ENV PATH /app/node_modules/.bin:$PATH
 
-# Expose port
-EXPOSE 8082
+#Copy package.json in the image
+COPY package.json ./
 
-# Run application
-CMD ["java", "-jar", "/app/my-web-app.war"]
+#Run npm install command
+RUN npm install
+
+#Copy the app
+COPY . ./
+
+EXPOSE 3000
+
+#Start the app
+CMD ["node", "./src/server.js"]
+
+#########Jave App#####################################################
+# FROM openjdk:11-jdk-slim
+
+# # Set working directory
+# WORKDIR /app
+
+# # Copy application files
+# COPY app/my-web-app.war /app/my-web-app.war
+
+# # Expose port
+# EXPOSE 8082
+
+# # Run application
+# CMD ["java", "-jar", "/app/my-web-app.war"]
 
 #################################Java Application##################################
 
