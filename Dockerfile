@@ -28,7 +28,7 @@ FROM openjdk:11-jdk-slim
 WORKDIR /app
 
 # Copy application files
-COPY target/my-web-app.war /app/my-web-app.war
+COPY app/my-web-app.war /app/my-web-app.war
 
 # Expose port
 EXPOSE 8082
