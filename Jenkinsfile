@@ -7,8 +7,8 @@ pipeline {
         SERVICE_NAME="nodejs"
         TASK_DEFINITION_NAME="custom"
         DESIRED_COUNT="1"
-        IMAGE_REPO_NAME="demo-jenkins"
-        IMAGE_TAG="${env.BUILD_ID}"
+        IMAGE_REPO_NAME="java-app"
+        IMAGE_TAG="java-v0${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	      // registryCredential = "ecsagent"
     }
@@ -64,9 +64,9 @@ pipeline {
               // docker.withRegistry('https://$(aws ecr get-login --region us-east-1 --no-include-email)') {
               // def app = docker.build("492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}")
               // app.push()
-              sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 492365833365.dkr.ecr.us-east-1.amazonaws.com'
-              sh 'docker tag demo-jenkins:${IMAGE_TAG} 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
-              sh 'docker push 492365833365.dkr.ecr.us-east-1.amazonaws.com/demo-jenkins:${IMAGE_TAG}'
+              sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com'
+              sh 'docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}'
+              sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}'
         }
       }
     }
